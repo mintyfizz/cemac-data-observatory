@@ -1,3 +1,6 @@
+-- raw: for landing data as-is from the source (World Bank API)
+-- staging: for cleaned and transformed data ready for analysis
+-- marts: for curated datasets optimized for specific analyses or dashboards
 CREATE SCHEMA IF NOT EXISTS raw;
 CREATE SCHEMA IF NOT EXISTS staging;
 CREATE SCHEMA IF NOT EXISTS marts;

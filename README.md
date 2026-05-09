@@ -1,6 +1,6 @@
-# CEMAC Digital Readiness
+# CEMAC Data Observatory
 
-Local analytics stack for the CEMAC digital readiness project.
+Local warehouse and analytics stack for CEMAC indicators.
 
 ## Start the stack
 
@@ -29,9 +29,9 @@ Default credentials:
 - Postgres login: `admin` / `admin`
 - Postgres database: `warehouse`
 
-pgAdmin is preconfigured with a server named `CDR Warehouse`. If the left tree looks empty after login, refresh the browser page and expand:
+pgAdmin is preconfigured with a server named `CEMAC Data Warehouse`. If the left tree looks empty after login, refresh the browser page and expand:
 
-`Servers > CDR Warehouse > Databases > warehouse > Schemas > raw > Tables > observations`
+`Servers > CEMAC Data Warehouse > Databases > warehouse > Schemas > raw > Tables > observations`
 
 The Postgres container still listens on port `5432` inside Docker. The host port is `15432` to avoid conflicts with local Postgres installs or other Docker projects.
 

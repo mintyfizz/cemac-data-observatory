@@ -1,7 +1,7 @@
 {
   "Servers": {
     "1": {
-      "Name": "CDR Warehouse",
+      "Name": "CEMAC Data Warehouse",
       "Group": "Servers",
       "Host": "postgres",
       "Port": 5432,
