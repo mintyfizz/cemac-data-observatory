@@ -1,0 +1,15 @@
+name: cemac_data_observatory
+version: "1.0.0"
+config-version: 2
+
+profile: cemac
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  cemac_data_observatory:
+    +materialized: view

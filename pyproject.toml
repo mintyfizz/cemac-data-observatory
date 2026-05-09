@@ -8,7 +8,10 @@ version = "0.1.0"
 description = "Local warehouse and analytics stack for CEMAC indicators."
 readme = "README.md"
 requires-python = ">=3.11"
+
 dependencies = [
+  "dbt-core>=1.8",
+  "dbt-postgres>=1.8",
   "pandas>=2.2",
   "psycopg[binary]>=3.2",
   "python-dotenv>=1.0",

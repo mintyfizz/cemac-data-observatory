@@ -35,6 +35,25 @@ pgAdmin is preconfigured with a server named `CEMAC Data Warehouse`. If the left
 
 The Postgres container still listens on port `5432` inside Docker. The host port is `15432` to avoid conflicts with local Postgres installs or other Docker projects.
 
+## dbt
+
+dbt reads database credentials from `~/.dbt/profiles.yml`, not from this repo. A safe template is committed at `dbt_project/profiles.yml.example`.
+
+Before running dbt, export the project `.env` values into your shell:
+
+```sh
+set -a
+source .env
+set +a
+```
+
+Then run dbt from the dbt project directory:
+
+```sh
+cd dbt_project
+dbt debug
+```
+
 ## Stop the stack
 
 ```sh
