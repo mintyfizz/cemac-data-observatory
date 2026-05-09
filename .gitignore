@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+.dbt/
+target/
+dbt_packages/
+logs/
+.DS_Store
+.vscode/
+.idea/
+*.egg-info/
