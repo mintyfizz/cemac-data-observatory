@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 import os
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -13,6 +16,7 @@ from extract.load import load_observations
 from extract.world_bank import fetch_indicator
 
 PROJECT_ROOT = Path(__file__).parent.parent
+DBT_PROJECT_DIR = PROJECT_ROOT / "dbt_project"
 
 
 def _conn_str() -> str:
@@ -23,6 +27,18 @@ def _conn_str() -> str:
         f"user={os.environ['POSTGRES_USER']} "
         f"password={os.environ['POSTGRES_PASSWORD']}"
     )
+
+
+def _dbt_command() -> list[str]:
+    dbt_on_path = shutil.which("dbt")
+    if dbt_on_path:
+        return [dbt_on_path, "build"]
+
+    dbt_next_to_python = Path(sys.executable).with_name("dbt")
+    if dbt_next_to_python.exists():
+        return [str(dbt_next_to_python), "build"]
+
+    return ["dbt", "build"]
 
 
 @task(
@@ -46,9 +62,26 @@ def extract_one_indicator(
     return n
 
 
+@task(name="dbt-build", retries=1, timeout_seconds=600)
+def run_dbt_build() -> None:
+    """Run dbt build as a subprocess, streaming output to Prefect logs."""
+    log = get_run_logger()
+    log.info("Running dbt build in %s", DBT_PROJECT_DIR)
+    result = subprocess.run(
+        _dbt_command(),
+        cwd=DBT_PROJECT_DIR,
+        capture_output=True,
+        text=True,
+    )
+    log.info(result.stdout)
+    if result.returncode != 0:
+        log.error(result.stderr)
+        raise RuntimeError(f"dbt build failed with exit code {result.returncode}")
+
+
 @flow(name="digital-readiness-pipeline", log_prints=True)
 def digital_readiness_pipeline() -> dict:
-    """Extract World Bank indicators into the raw warehouse schema."""
+    """End-to-end: extract World Bank indicators, then run dbt build."""
     load_dotenv(PROJECT_ROOT / ".env")
     log = get_run_logger()
 
@@ -65,6 +98,8 @@ def digital_readiness_pipeline() -> dict:
     ]
     grand_total = sum(totals)
     log.info("Extraction complete. %d total rows processed.", grand_total)
+
+    run_dbt_build()
 
     log.info("Pipeline complete.")
     return {"rows_processed": grand_total, "indicators_processed": len(totals)}
