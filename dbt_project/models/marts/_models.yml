@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_countries
+    columns:
+      - name: country_code
+        tests: [not_null, unique]
+
+  - name: dim_indicators
+    columns:
+      - name: indicator_code
+        tests: [not_null, unique]
+
+  - name: fct_observations
+    description: "Fact: country x indicator x year with all dimensional context"
+    columns:
+      - name: country_code
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_countries')
+                field: country_code
+      - name: indicator_code
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_indicators')
+                field: indicator_code
+      - name: value
+        tests: [not_null]
