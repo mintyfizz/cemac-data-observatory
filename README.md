@@ -54,6 +54,17 @@ cd dbt_project
 dbt debug
 ```
 
+Generate and serve the dbt documentation site:
+
+```sh
+dbt docs generate
+dbt docs serve
+```
+
+The generated lineage graph shows the raw World Bank observations and seed metadata flowing through staging into the curated mart tables.
+
+![dbt lineage graph](docs/assets/dbt-lineage-graph.png)
+
 ## Stop the stack
 
 ```sh
