@@ -30,3 +30,14 @@ models:
                 field: indicator_code
       - name: value
         tests: [not_null]
+
+  - name: mart_group_averages_yearly
+    columns:
+      - name: indicator_code
+        tests: [not_null]
+
+  - name: cemac_digital_readiness
+    description: "Dashboard-ready wide table"
+    columns:
+      - name: country_value
+        tests: [not_null]
