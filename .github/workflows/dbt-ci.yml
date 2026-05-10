@@ -1,0 +1,28 @@
+name: dbt CI
+
+on:
+  pull_request:
+    paths:
+      - 'dbt_project/**'
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt
+        run: pip install dbt-core dbt-postgres
+
+      # dbt parse validates SQL and Jinja without opening a database connection,
+      # so dummy credentials are safe here.
+      - name: Create CI profiles
+        run: cp dbt_project/profiles.ci.yml dbt_project/profiles.yml
+
+      - name: dbt parse
+        working-directory: dbt_project
+        run: dbt parse --profiles-dir .

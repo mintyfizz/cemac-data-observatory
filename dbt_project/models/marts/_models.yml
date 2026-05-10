@@ -36,6 +36,18 @@ models:
       - name: indicator_code
         tests: [not_null]
 
+  - name: mart_pipeline_health
+    description: "One-row public pipeline freshness and coverage summary for dashboard health cards"
+    columns:
+      - name: last_refresh_at
+        tests: [not_null]
+      - name: total_observations
+        tests: [not_null]
+      - name: countries_present
+        tests: [not_null]
+      - name: indicators_present
+        tests: [not_null]
+
   - name: cemac_digital_readiness
     description: "Dashboard-ready wide table"
     columns:
