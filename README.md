@@ -65,6 +65,37 @@ The generated lineage graph shows the raw World Bank observations and seed metad
 
 ![dbt lineage graph](docs/assets/dbt-lineage-graph.png)
 
+## Running the pipeline
+
+One-time local setup:
+
+```sh
+docker compose up -d
+prefect config set PREFECT_API_URL=http://localhost:4200/api
+prefect concurrency-limit create world-bank 4
+```
+
+Manual run:
+
+```sh
+set -a
+source .env
+set +a
+python -m flows.digital_readiness
+```
+
+Scheduled run:
+
+```sh
+python -m flows.serve
+```
+
+Leave the scheduled worker running while you want Prefect to pick up scheduled or quick-run deployments.
+
+The Prefect flow extracts indicators in parallel, limits World Bank API concurrency through the `world-bank` tag, then runs `dbt build` after extraction completes.
+
+![Prefect flow run](docs/assets/prefect-flow-run.png)
+
 ## Stop the stack
 
 ```sh
