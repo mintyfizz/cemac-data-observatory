@@ -5,6 +5,7 @@ config-version: 2
 profile: cemac
 
 model-paths: ["models"]
+seed-paths: ["seeds"]
 target-path: "target"
 clean-targets:
   - "target"
@@ -12,4 +13,12 @@ clean-targets:
 
 models:
   cemac_data_observatory:
-    +materialized: view
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+
+seeds:
+  cemac_data_observatory:
+    +schema: staging
