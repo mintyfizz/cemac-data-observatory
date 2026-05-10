@@ -47,6 +47,7 @@ def _dbt_command() -> list[str]:
     retry_delay_seconds=exponential_backoff(backoff_factor=2),
     retry_jitter_factor=0.5,
     timeout_seconds=120,
+    tags=["world-bank"],
 )
 def extract_one_indicator(
     indicator_code: str,
@@ -81,7 +82,7 @@ def run_dbt_build() -> None:
 
 @flow(name="digital-readiness-pipeline", log_prints=True)
 def digital_readiness_pipeline() -> dict:
-    """End-to-end: extract World Bank indicators, then run dbt build."""
+    """End-to-end: parallel extraction across indicators, then dbt build."""
     load_dotenv(PROJECT_ROOT / ".env")
     log = get_run_logger()
 
@@ -92,10 +93,11 @@ def digital_readiness_pipeline() -> dict:
         len(INDICATORS),
     )
 
-    totals = [
-        extract_one_indicator(code, name, country_codes)
+    futures = [
+        extract_one_indicator.submit(code, name, country_codes)
         for code, name in INDICATORS.items()
     ]
+    totals = [f.result() for f in futures]
     grand_total = sum(totals)
     log.info("Extraction complete. %d total rows processed.", grand_total)
 
