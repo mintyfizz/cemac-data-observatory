@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_observations
+    description: "Cleaned observations - nulls filtered, types enforced"
+    columns:
+      - name: country_code
+        tests: [not_null]
+      - name: indicator_code
+        tests: [not_null]
+      - name: year
+        tests: [not_null]
+      - name: value
+        tests: [not_null]
+
+  - name: stg_countries
+    description: "Tracked countries with grouping flags"
+    columns:
+      - name: country_code
+        tests: [not_null, unique]
+      - name: country_group
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['CEMAC', 'Benchmark', 'Other']
+
+  - name: stg_indicators
+    description: "Tracked indicators with categorization"
+    columns:
+      - name: indicator_code
+        tests: [not_null, unique]
+      - name: category
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['digital', 'infrastructure', 'economy', 'governance', 'demographics']
