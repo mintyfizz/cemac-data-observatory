@@ -1,0 +1,9 @@
+country_code,country_name,is_cemac,is_benchmark,region,capital
+COG,Congo Republic,true,false,Central Africa,Brazzaville
+CMR,Cameroon,true,false,Central Africa,Yaoundé
+GAB,Gabon,true,false,Central Africa,Libreville
+TCD,Chad,true,false,Central Africa,N'Djamena
+CAF,Central African Republic,true,false,Central Africa,Bangui
+GNQ,Equatorial Guinea,true,false,Central Africa,Malabo
+RWA,Rwanda,false,true,East Africa,Kigali
+KEN,Kenya,false,true,East Africa,Nairobi

@@ -1,0 +1,11 @@
+indicator_code,indicator_name,category,unit,is_higher_better
+IT.NET.USER.ZS,Internet users,digital,percent,true
+IT.CEL.SETS.P2,Mobile cellular subscriptions,digital,per_100,true
+IT.NET.BBND.P2,Fixed broadband subscriptions,digital,per_100,true
+EG.ELC.ACCS.ZS,Access to electricity,infrastructure,percent,true
+NY.GDP.PCAP.PP.CD,GDP per capita PPP,economy,usd,true
+SE.XPD.TOTL.GD.ZS,Government education spending,governance,percent_gdp,true
+SH.XPD.CHEX.GD.ZS,Health expenditure,governance,percent_gdp,true
+NE.TRD.GNFS.ZS,Trade,economy,percent_gdp,true
+SP.URB.TOTL.IN.ZS,Urban population,demographics,percent,true
+SP.POP.TOTL,Population total,demographics,count,true
