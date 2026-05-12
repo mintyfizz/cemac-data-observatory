@@ -11,3 +11,7 @@ logs/
 .vscode/
 .idea/
 *.egg-info/
+
+# Local dbt config files
+dbt_project/.user.yml
+dbt_project/profiles.yml
