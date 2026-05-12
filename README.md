@@ -5,6 +5,10 @@ the six CEMAC countries — Congo-Brazzaville, Cameroon, Gabon, Chad, Central
 African Republic, Equatorial Guinea — benchmarked against African digital
 leaders Rwanda and Kenya.
 
+## Project status
+
+Completed.
+
 ![Dashboard](docs/screenshots/dashboard.png)
 
 ## What it does
@@ -146,13 +150,6 @@ concurrency via the `world-bank` tag, then runs `dbt build` downstream.
 - **CEMAC + Rwanda/Kenya** — deliberate. CEMAC alone is a flat regional
   comparison; benchmarks against African digital leaders create the gap
   narrative the dashboard is built around.
-
-## What's next
-
-- [ ] Add World Governance Indicators alongside development indicators
-- [ ] DHIS2 health-system data as a second source
-- [ ] dbt snapshots for historical World Bank revisions
-- [ ] Containerise the worker for production-style deployment
 
 ## Stop the stack
 
