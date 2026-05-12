@@ -1,6 +1,6 @@
 # CEMAC Data Observatory
 
-A completed local data platform for tracking digital development indicators across CEMAC countries, benchmarked against Rwanda and Kenya.
+A completed reference implementation of a local data platform for tracking digital development indicators across CEMAC countries, benchmarked against Rwanda and Kenya.
 
 ![Dashboard](docs/screenshots/dashboard.png)
 
@@ -75,7 +75,7 @@ python -m flows.digital_readiness
 | Metabase | http://localhost:3000 |
 | Prefect UI | http://localhost:4200 |
 | pgAdmin | http://127.0.0.1:5051 |
-| Postgres (host machine) | `localhost:15432` |
+| Postgres (from host machine) | `localhost:15432` |
 
 Default local credentials:
 
