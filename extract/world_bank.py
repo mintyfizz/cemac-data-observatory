@@ -1,4 +1,5 @@
 """World Bank API extraction helpers."""
+
 from __future__ import annotations
 
 import logging

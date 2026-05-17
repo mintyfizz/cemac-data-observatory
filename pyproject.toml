@@ -23,11 +23,12 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "pytest>=8.3",
+  "pyright>=1.1",
   "ruff>=0.8",
 ]
 
 [tool.setuptools]
-packages = []
+packages = ["extract", "flows"]
 
 [tool.ruff]
 line-length = 100

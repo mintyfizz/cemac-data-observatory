@@ -6,6 +6,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+      METABASE_READER_PASSWORD: ${METABASE_READER_PASSWORD:-change_me_locally}
     ports:
       - "${POSTGRES_PORT:-15432}:5432"
     volumes:

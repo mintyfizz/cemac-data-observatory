@@ -58,7 +58,9 @@ Open the dashboards:
 | pgAdmin | http://127.0.0.1:5051 |
 | Postgres (external) | `localhost:15432` |
 
-Default credentials: `admin` / `admin` for everything (pgAdmin: `nathangatse@outlook.com` / `admin`).
+Defaults are in [.env.example](.env.example). Metabase has no default account;
+create its admin user on first visit. Change the example passwords in your
+local `.env` before demos or shared screenshots.
 
 For scheduled weekly runs: `python -m flows.serve` (leave running).
 
@@ -73,16 +75,15 @@ Choose **PostgreSQL** and fill in:
 | Port | `5432` |
 | Database name | `warehouse` |
 | Username | `metabase_reader` |
-| Password | `metabase_local_only` |
+| Password | `METABASE_READER_PASSWORD` from `.env` |
 
 The `metabase_reader` role is created automatically on first container start by
-[sql/init/02_metabase_reader.sql](sql/init/02_metabase_reader.sql). It has
+[sql/init/02_metabase_reader.sh](sql/init/02_metabase_reader.sh). It has
 `SELECT` access on `marts` only — it cannot write or read raw data.
 
 > If you have an existing Postgres volume from a previous install, create the role manually:
 > ```sh
-> docker exec -it cdr_postgres psql -U admin -d warehouse \
->   -f /docker-entrypoint-initdb.d/02_metabase_reader.sql
+> docker exec -it cdr_postgres sh /docker-entrypoint-initdb.d/02_metabase_reader.sh
 > ```
 
 ## dbt
@@ -98,7 +99,7 @@ dbt build        # run all models + tests
 dbt docs generate && dbt docs serve   # lineage graph at http://localhost:8080
 ```
 
-![dbt lineage graph](docs/screenshots/dbt-lineage.png)
+![dbt lineage graph](docs/assets/dbt-lineage-graph.png)
 
 All models have `not_null`, `unique`, and `relationships` tests. `dbt build`
 runs and validates every layer in dependency order.

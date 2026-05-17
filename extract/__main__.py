@@ -1,4 +1,5 @@
 """Run with: python -m extract"""
+
 from __future__ import annotations
 
 import logging

@@ -1,4 +1,5 @@
 """Prefect orchestration for the digital readiness pipeline."""
+
 from __future__ import annotations
 
 import os
@@ -94,8 +95,7 @@ def digital_readiness_pipeline() -> dict:
     )
 
     futures = [
-        extract_one_indicator.submit(code, name, country_codes)
-        for code, name in INDICATORS.items()
+        extract_one_indicator.submit(code, name, country_codes) for code, name in INDICATORS.items()
     ]
     totals = [f.result() for f in futures]
     grand_total = sum(totals)
